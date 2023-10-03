@@ -1,6 +1,16 @@
 import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js';
 import { app, db, storage, storageBucket } from '/src/index.js';
 
+// Define the getMonthName function
+function getMonthName(monthIndex) {
+    const months = [
+        "January", "February", "March", "April",
+        "May", "June", "July", "August",
+        "September", "October", "November", "December"
+    ];
+    return months[monthIndex];
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     const calendarContainer = document.querySelector(".calendar");
     const modal = document.getElementById("modal");
@@ -30,6 +40,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         const currentMonth = currentDate.getMonth();
         const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
+        // Select the H1 element by its id
+        const monthHeader = document.getElementById("monthHeader");
+
+        const monthName = getMonthName(currentMonth);
+
+        // Update the text content of the H1 element
+        monthHeader.textContent = `Your adventures in ${monthName}`;
+
         for (let day = 1; day <= daysInMonth; day++) {
             const date = new Date(currentYear, currentMonth, day);
             const dayElement = document.createElement("div");
@@ -42,28 +60,27 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return trip.date.toISOString().slice(0, 10) === date.toISOString().slice(0, 10);
             });
             if (trip) {
-                const icon = document.createElement("img");
-                icon.src = trip.picture; // Use the picture URL from Firestore
-                icon.alt = trip.location;
-                icon.classList.add("calendar-icon"); // Add a CSS class to the icon
 
+                dayElement.classList.add("has-trip"); // Add a CSS class to style it with a border
+                dayElement.style.cursor = "pointer"; // Change cursor style
 
-                // Show the modal on icon hover
-                icon.addEventListener("mouseenter", () => {
+                // Show the modal on dayElement hover if a trip is present
+            dayElement.addEventListener("click", () => {
+                if (trip) {
                     modal.innerHTML = `
                         <img src="${trip.picture}" alt="${trip.location}">
                         <h2>${trip.location}</h2>
                         <p>${trip.description}</p>
                     `;
                     modal.style.display = "block";
-                });
+                }
+            });
 
-                // Hide the modal when the mouse leaves the icon
-                icon.addEventListener("mouseleave", () => {
-                    modal.style.display = "none";
-                });
+                // Hide the modal when the mouse leaves the dayElement
+            dayElement.addEventListener("mouseleave", () => {
+                modal.style.display = "none";
+            });
 
-                dayElement.appendChild(icon);
             }
 
             calendarContainer.appendChild(dayElement);
