@@ -1,0 +1,93 @@
+/* load-trips-styles.css */
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Style for the form container */
+#tripForm {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px 20px; /* Add padding to both left and right sides */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#tripDate,
+#tripLocation,
+#tripDescription,
+#tripImage {
+    width: 100%; /* Set the width to 100% to stay within the container */
+    padding: 10px; /* Add padding for spacing */
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the width/height */
+}
+
+#tripForm button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #001d3c;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="date"],
+input[type="text"],
+textarea,
+input[type="file"],
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* Prevent resizing */
+    height: 150px; /* Adjust the height as needed */
+}
+
+
+button {
+    background-color: #001d3c;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #000000;
+}
+
+/* Add more styles as needed for specific elements in your load trips form */
+
+/* Responsive CSS for smaller screens */
+@media screen and (max-width: 768px) {
+    #tripForm {
+        max-width: 90%;
+    }
+}

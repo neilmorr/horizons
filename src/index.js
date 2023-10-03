@@ -4,7 +4,7 @@ import { getStorage } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-s
 
 // Initialize Firebase
 const firebaseConfig = {
-  // Your Firebase config object
+  // Firebase config object
   apiKey: "AIzaSyCcCB8xX0-xJbmRhzzgqk0A_EaN6na9vVY",
     authDomain: "eternal-byte-345004.firebaseapp.com",
     projectId: "eternal-byte-345004",
