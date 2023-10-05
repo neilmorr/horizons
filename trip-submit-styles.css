@@ -9,6 +9,7 @@ body {
 
 h1 {
     text-align: center;
+    font-family: 'Playfair Display', Arial;
 }
 
 /* Style for the form container */
@@ -82,8 +83,7 @@ button {
 button:hover {
     background-color: #000000;
 }
-
-/* Add more styles as needed for specific elements in your load trips form */
+  
 
 /* Responsive CSS for smaller screens */
 @media screen and (max-width: 768px) {

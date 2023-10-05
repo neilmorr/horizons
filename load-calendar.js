@@ -64,23 +64,31 @@ document.addEventListener("DOMContentLoaded", async () => {
                 dayElement.classList.add("has-trip"); // Add a CSS class to style it with a border
                 dayElement.style.cursor = "pointer"; // Change cursor style
 
-                // Show the modal on dayElement hover if a trip is present
-            dayElement.addEventListener("click", () => {
-                if (trip) {
-                    modal.innerHTML = `
-                        <img src="${trip.picture}" alt="${trip.location}">
-                        <h2>${trip.location}</h2>
-                        <p>${trip.description}</p>
-                    `;
-                    modal.style.display = "block";
-                }
-            });
+                // Show the modal on dayElement click if a trip is present
+                dayElement.addEventListener("click", () => {
+                    if (trip) {
+                        modal.innerHTML = `
+                            <img src="${trip.picture}" alt="${trip.location}">
+                            <h2>${trip.location}</h2>
+                            <p>${trip.description}</p>
+                            <button id="closeModal">Close</button>
+                        `;
+                        modal.style.display = "block";
 
-                // Hide the modal when the mouse leaves the dayElement
-            dayElement.addEventListener("mouseleave", () => {
-                modal.style.display = "none";
-            });
+                        // Add event listener to close the modal when clicking the close button
+                        const closeModalButton = document.getElementById("closeModal");
+                        closeModalButton.addEventListener("click", () => {
+                            modal.style.display = "none";
+                        });
 
+                        // Add event listener to close the modal when clicking outside of it
+                        window.addEventListener("click", (event) => {
+                            if (event.target === modal) {
+                                modal.style.display = "none";
+                            }
+                        });
+                    }
+                });
             }
 
             calendarContainer.appendChild(dayElement);
