@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             dayElement.classList.add("day");
             dayElement.textContent = day;
 
-            // Check if the day has a completed trip and add the icon
+            // Check if the day has a completed trip
             const trip = completedTrips.find(trip => {
                 // Check if the tripDate matches the current date in the loop
                 return trip.date.toISOString().slice(0, 10) === date.toISOString().slice(0, 10);
@@ -81,9 +81,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                             modal.style.display = "none";
                         });
 
-                        // Add event listener to close the modal when clicking outside of it
-                        window.addEventListener("click", (event) => {
-                            if (event.target === modal) {
+                        // Add event listener to close the modal when clicking outside of its boundaries
+                        window.addEventListener("mousedown", (event) => {
+                            if (modal.style.display === "block" && !modal.contains(event.target)) {
                                 modal.style.display = "none";
                             }
                         });
@@ -93,7 +93,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             calendarContainer.appendChild(dayElement);
         }
-    } catch (error) {
+    
+    } 
+    
+    catch (error) {
         console.error('Error fetching trip data:', error);
     }
 });
