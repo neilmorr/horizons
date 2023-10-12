@@ -32,8 +32,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         });
 
-        console.log(completedTrips);
-
         // Generate the calendar grid
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();
@@ -71,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <img src="${trip.picture}" alt="${trip.location}">
                             <h2>${trip.location}</h2>
                             <p>${trip.description}</p>
-                            <button id="closeModal">Close</button>
+                            <button id="closeModal">x</button>
                         `;
                         modal.style.display = "block";
 
@@ -90,12 +88,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }
                 });
             }
-
             calendarContainer.appendChild(dayElement);
         }
-    
     } 
-    
     catch (error) {
         console.error('Error fetching trip data:', error);
     }
