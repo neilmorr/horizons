@@ -20,10 +20,10 @@ function showPopup(message) {
 
     popup.style.right = '0';
 
-    // Automatically hide the popup after a delay (e.g., 3 seconds)
+    // Automatically hide the popup after a delay
     setTimeout(function() {
         hidePopup();
-    }, 3000); // 3000 milliseconds = 3 seconds
+    }, 3000); // 
 }
 
 // Function to hide the success message popup
@@ -32,8 +32,24 @@ function hidePopup() {
     popup.style.right = '-100%'; // Slide it back off-screen to the right
 }
 
+// Function to start the loading animation
+function startLoadingAnimation() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'block';
+}
+
+// Function to stop the loading animation
+function stopLoadingAnimation() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'none';
+}
+
 document.getElementById("tripForm").addEventListener("submit", async function (event) {
     event.preventDefault();
+
+    // Start the loading animation
+    startLoadingAnimation();
+
 
     const tripDate = document.getElementById("tripDate").value;
     const tripLocation = document.getElementById("tripLocation").value;
@@ -42,13 +58,11 @@ document.getElementById("tripForm").addEventListener("submit", async function (e
     
     // Check if a file is selected
     if (tripImageInput.files.length > 0) {
+
         const tripImageFile = tripImageInput.files[0];
-        console.log(tripImageFile.name);
         
         // Upload the image to Firebase Storage (replace 'images' with your storage path)
         const storageRef = ref(storage, 'trips/' + tripImageFile.name);
-        console.log('Storage Reference:', storageRef); // Log storage reference
-
 
         const storageSnapshot = await uploadBytes(storageRef, tripImageFile);
 
@@ -64,28 +78,37 @@ document.getElementById("tripForm").addEventListener("submit", async function (e
 
         // Write the new trip data to Firestore
         try {
+    
+            // Hide the form or relevant content
+            
+
             const tripsCollectionRef = collection(db, 'trips');
             await addDoc(tripsCollectionRef, newTrip);
             console.log('Trip data added to Firestore:', newTrip);
+
+            stopLoadingAnimation();
 
             // Optionally, you can update the calendar here if needed
             //updateCalendar(); // Currently throwing error in console
 
             // Clear the form fields after successful submission
             document.getElementById("tripForm").reset();
+       
+
 
             // Call the showPopup function when you want to display the message
             showPopup('Trip successfully added!'); // Example usage
-
-            
-
         
        
         } catch (error) {
             console.error('Error adding trip data:', error);
+             // Start the loading animation
+             stopLoadingAnimation();
         }
     } else {
         // Handle the case where no image is selected
         console.error('No image selected.');
+       
+        stopLoadingAnimation();
     }
 });
