@@ -65,13 +65,28 @@ document.addEventListener("DOMContentLoaded", async () => {
                 // Show the modal on dayElement click if a trip is present
                 dayElement.addEventListener("click", () => {
                     if (trip) {
+                        // Create the modal container
                         modal.innerHTML = `
-                            <img src="${trip.picture}" alt="${trip.location}">
-                            <h2>${trip.location}</h2>
-                            <p>${trip.description}</p>
-                            <button id="closeModal">x</button>
+                            <div id="modalContent">
+                                <h2>${trip.location}</h2>
+                                <p>${trip.description}</p>
+                                <button id="closeModal">x</button>
+                            </div>
                         `;
-                        modal.style.display = "block";
+
+                        // Append the modal to the body
+                        document.body.appendChild(modal);
+
+                        // Create an image element
+                        const image = new Image();
+                        image.src = trip.picture;
+                        image.alt = trip.location;
+
+                        // Add an event listener to show the modal after the image is loaded
+                        image.addEventListener("load", () => {
+                            document.getElementById("modalContent").insertAdjacentElement("afterbegin", image);
+                            modal.style.display = "block";
+                        });
 
                         // Add event listener to close the modal when clicking the close button
                         const closeModalButton = document.getElementById("closeModal");
